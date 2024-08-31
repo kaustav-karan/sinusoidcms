@@ -2,7 +2,7 @@ import { Delete } from "@mui/icons-material";
 import { Button, Grid2, TextField } from "@mui/material";
 import React from "react";
 
-export default function StructuredEventData({ type, eventInfo, index, setEventData}) {
+export default function StructuredEventData({ type, eventInfo, index, setEventData, disabled}) {
   return (
     <Grid2 className="flex gap-2 flex-row" size={12} key={index}>
           <TextField
@@ -11,6 +11,7 @@ export default function StructuredEventData({ type, eventInfo, index, setEventDa
         id={`${index}-dialog`}
         label={`${type?.label} ${index + 1}`}
         value={eventInfo}
+        disabled={disabled}
         onChange={(e) => {
           const newValue = e?.target?.value;
           setEventData((prev) => ({
@@ -24,6 +25,7 @@ export default function StructuredEventData({ type, eventInfo, index, setEventDa
       <Button
         className="flex justify-items-center"
         startIcon={<Delete />}
+        disabled={disabled}
         onClick={() =>
           setEventData((prev) => ({
             ...prev,

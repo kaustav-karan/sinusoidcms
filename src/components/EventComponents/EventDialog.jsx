@@ -18,20 +18,20 @@ import axios from "axios";
 import dayjs from "dayjs";
 import React, { useEffect, useState } from "react";
 import StructuredEventData from "./StructuredEventData";
+import { MoonLoader } from "react-spinners";
 
 export default function EventDialog({ open, onClose, event, newEvent }) {
   const [eventData, setEventData] = useState(event);
+  const [loading, setLoading] = useState(false);
 
   async function handleSave() {
     try {
       const response = newEvent
-        ? await axios.post("https://api.sinusoid.in/events", eventData)
+        ? await axios.post("http://localhost:5000/events", eventData)
         : await axios.put(
             `https://api.sinusoid.in/events/${eventData?.eventId}`,
             eventData
           );
-      console.log(response?.data);
-      onClose();
       return response?.data;
     } catch (error) {
       console.error("Error fetching events:", error);
@@ -40,31 +40,39 @@ export default function EventDialog({ open, onClose, event, newEvent }) {
     }
   }
 
+  async function onSave() {
+    setLoading(true);
+    await handleSave();
+    onClose();
+    setLoading(false);
+    window.location.reload();
+  }
+
   useEffect(() => {
     console.log(eventData);
   }, [eventData]);
 
-  function onChangeText(e, id) {
+  function onChangeText(e, key) {
     setEventData((prev) => ({
       ...prev,
-      [id]: e.target.value,
+      [key]: e.target.value,
     }));
   }
 
-  function onChangeDate(e, id) {
+  function onChangeDate(e, key) {
     setEventData((prev) => ({
       ...prev,
-      structure: {
-        ...prev.structure,
-        [id]: dayjs(e),
+      schedule: {
+        ...prev.schedule,
+        [key]: dayjs(e),
       },
     }));
   }
 
-  function onChangeSwitch(e, id) {
+  function onChangeSwitch(e, key) {
     setEventData((prev) => ({
       ...prev,
-      [id]: e.target.checked,
+      [key]: e.target.checked,
     }));
   }
 
@@ -76,7 +84,11 @@ export default function EventDialog({ open, onClose, event, newEvent }) {
       fullWidth="lg"
     >
       <div className="flex flex-row justify-between">
-        <DialogTitle>{`Edit ${eventData?.eventName} Details`}</DialogTitle>
+        <DialogTitle>
+          {newEvent
+            ? "Add a New Event"
+            : `Edit ${eventData?.eventName} Details`}
+        </DialogTitle>
         <DialogActions>
           <IconButton onClick={onClose} className="flex mx-2 px-2">
             <Close />
@@ -97,6 +109,7 @@ export default function EventDialog({ open, onClose, event, newEvent }) {
                 label="Event Id"
                 value={eventData?.eventId}
                 onChange={(e) => onChangeText(e, "eventId")}
+                disabled={loading}
               />
             </Grid2>
             <Grid2 size={6}>
@@ -107,6 +120,7 @@ export default function EventDialog({ open, onClose, event, newEvent }) {
                     checked={eventData?.published}
                     onChange={(e) => onChangeSwitch(e, "published")}
                     id={`${event?.published}-dialog`}
+                    disabled={loading}
                   />
                 }
                 label="Published"
@@ -118,6 +132,7 @@ export default function EventDialog({ open, onClose, event, newEvent }) {
             label="Event Name"
             value={eventData?.eventName}
             onChange={(e) => onChangeText(e, "eventName")}
+            disabled={loading}
           />
 
           <TextField
@@ -125,6 +140,7 @@ export default function EventDialog({ open, onClose, event, newEvent }) {
             label="Status"
             value={eventData?.status}
             onChange={(e) => onChangeText(e, "status")}
+            disabled={loading}
           />
 
           <TextField
@@ -132,6 +148,7 @@ export default function EventDialog({ open, onClose, event, newEvent }) {
             label="Event Tagline"
             value={eventData?.eventTagline}
             onChange={(e) => onChangeText(e, "eventTagline")}
+            disabled={loading}
           />
 
           <TextField
@@ -139,6 +156,7 @@ export default function EventDialog({ open, onClose, event, newEvent }) {
             label="Short Description"
             value={eventData?.shortDesc}
             onChange={(e) => onChangeText(e, "shortDesc")}
+            disabled={loading}
           />
 
           <TextField
@@ -147,6 +165,7 @@ export default function EventDialog({ open, onClose, event, newEvent }) {
             value={eventData?.longDesc}
             onChange={(e) => onChangeText(e, "longDesc")}
             multiline
+            disabled={loading}
           />
 
           <TextField
@@ -154,6 +173,7 @@ export default function EventDialog({ open, onClose, event, newEvent }) {
             label="Note"
             value={eventData?.note}
             onChange={(e) => onChangeText(e, "note")}
+            disabled={loading}
           />
 
           <TextField
@@ -161,6 +181,7 @@ export default function EventDialog({ open, onClose, event, newEvent }) {
             label="Overview"
             value={eventData?.overview}
             onChange={(e) => onChangeText(e, "overview")}
+            disabled={loading}
           />
 
           <Grid2
@@ -175,6 +196,7 @@ export default function EventDialog({ open, onClose, event, newEvent }) {
                 label="Registration Start"
                 value={dayjs(eventData?.schedule?.registrationStart)}
                 onChange={(e) => onChangeDate(e, "registrationStart")}
+                disabled={loading}
               />
             </Grid2>
             <Grid2 size={6}>
@@ -184,6 +206,7 @@ export default function EventDialog({ open, onClose, event, newEvent }) {
                 label="Registration End"
                 value={dayjs(eventData?.schedule?.registrationEnd)}
                 onChange={(e) => onChangeDate(e, "registrationEnd")}
+                disabled={loading}
               />
             </Grid2>
 
@@ -194,6 +217,7 @@ export default function EventDialog({ open, onClose, event, newEvent }) {
                 label="Event Start"
                 value={dayjs(eventData?.schedule?.eventStart)}
                 onChange={(e) => onChangeDate(e, "eventStart")}
+                disabled={loading}
               />
             </Grid2>
             <Grid2 size={6}>
@@ -203,6 +227,7 @@ export default function EventDialog({ open, onClose, event, newEvent }) {
                 label="Event End"
                 value={dayjs(eventData?.schedule?.eventEnd)}
                 onChange={(e) => onChangeDate(e, "eventEnd")}
+                disabled={loading}
               />
             </Grid2>
 
@@ -213,6 +238,7 @@ export default function EventDialog({ open, onClose, event, newEvent }) {
                 label="Submission Start"
                 value={dayjs(eventData?.schedule?.submissionStart)}
                 onChange={(e) => onChangeDate(e, "submissionStart")}
+                disabled={loading}
               />
             </Grid2>
 
@@ -223,6 +249,7 @@ export default function EventDialog({ open, onClose, event, newEvent }) {
                 label="Submission End"
                 value={dayjs(eventData?.schedule?.submissionEnd)}
                 onChange={(e) => onChangeDate(e, "submissionEnd")}
+                disabled={loading}
               />
             </Grid2>
           </Grid2>
@@ -249,6 +276,7 @@ export default function EventDialog({ open, onClose, event, newEvent }) {
                 eventInfo={eventInfo}
                 index={index}
                 setEventData={setEventData}
+                disabled={loading}
               />
             ))}
             <Button
@@ -282,6 +310,7 @@ export default function EventDialog({ open, onClose, event, newEvent }) {
             </Grid2>
             {eventData?.rules?.map((eventInfo, index) => (
               <StructuredEventData
+                id={`${index}-dialog`}
                 type={{ id: "rules", label: "Rule" }}
                 eventInfo={eventInfo}
                 index={index}
@@ -340,8 +369,12 @@ export default function EventDialog({ open, onClose, event, newEvent }) {
         </div>
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose}>Cancel</Button>
-        <Button onClick={() => handleSave()}>Save</Button>
+        <Button onClick={onClose} disabled={loading}>
+          Cancel
+        </Button>
+        <Button onClick={() => onSave()} disabled={loading}>
+          {loading ? <MoonLoader size={20} /> : "Save"}
+        </Button>
       </DialogActions>
     </Dialog>
   );

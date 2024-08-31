@@ -74,7 +74,7 @@ export default function EventRowComponent({ event, idx }) {
         <TableCell>
           <Button
             className="flex justify-center items-center w-[50px] h-[50px] aspect-square m-auto"
-            onClick={handleDelete}
+            onClick={() => handleDelete(event?.eventId)}
             startIcon={<Delete className="flex justify-center items-center m-auto" />}
           />
         </TableCell>

@@ -2,7 +2,6 @@ import MenuIcon from "@mui/icons-material/Menu";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
 import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
@@ -14,12 +13,9 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
 import { Link } from "react-router-dom";
+import { mainRoutes } from "../routes/mainRoutes";
 
 const drawerWidth = 240;
-const navItems = [
-    { name: "Events", link: "/events" },
-    { name: "Sponsors", link: "/sponsors" },
-];
 
 function ProtectedHeader(props) {
   const { window } = props;
@@ -36,15 +32,17 @@ function ProtectedHeader(props) {
       </Typography>
       <Divider />
       <List>
-        {navItems.map((item) => (
-          <ListItem key={item?.name} disablePadding>
-            <ListItemButton sx={{ textAlign: "center" }}>
-              <Link to={item?.link}>
-                <ListItemText primary={item?.name} />
-              </Link>
-            </ListItemButton>
-          </ListItem>
-        ))}
+        {mainRoutes
+          .filter((route) => route?.nabarItem)
+          .map((item, idx) => (
+            <ListItem key={`navbarItem-${idx}`} disablePadding>
+              <ListItemButton sx={{ textAlign: "center" }}>
+                <Link to={item?.path}>
+                  <ListItemText primary={item?.name} />
+                </Link>
+              </ListItemButton>
+            </ListItem>
+          ))}
       </List>
     </Box>
   );
@@ -76,8 +74,8 @@ function ProtectedHeader(props) {
             </Link>
           </Box>
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
-            {navItems.map((item) => (
-              <Link to={item?.link} key={item?.name}>
+            {mainRoutes.filter((route) => route?.nabarItem).map((item, idx) => (
+              <Link to={item?.path} key={item?.name}>
                 <Button key={item?.name} sx={{ color: "#fff" }}>
                   {item?.name}
                 </Button>

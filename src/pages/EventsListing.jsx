@@ -1,13 +1,11 @@
 import { Add } from "@mui/icons-material";
-import {
-  Button
-} from "@mui/material";
+import { Button } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import EventsListingTable from "../components/EventsListingTable";
 import ProtectedHeader from "../components/Header";
-import EventDialog from "../components/EventDialog";
-import { newEventSchema } from "../constants/newEventSchema";
+import { newEventSchema } from "../constants/generalConstants";
+import EventDialog from "../components/EventComponents/EventDialog";
+import EventsListingTable from "../components/EventComponents/EventsListingTable";
 
 export default function EventsListing() {
   const fetchAllEvent = async () => {
@@ -29,7 +27,7 @@ export default function EventsListing() {
 
   const handleClose = () => {
     setDialogState(false);
-  }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -49,11 +47,18 @@ export default function EventsListing() {
       <ProtectedHeader />
       <div className="flex mt-20 mx-auto flex-col items-center justify-center w-fit">
         <div className="flex justify-end w-full">
-          <Button startIcon={<Add /> } onClick={handleClickOpen} >Add a New Event</Button>
+          <Button startIcon={<Add />} onClick={handleClickOpen}>
+            Add a New Event
+          </Button>
         </div>
         <EventsListingTable eventsData={eventData} />
-    </div >
-        <EventDialog event={newEventSchema} newEvent onClose={handleClose} open={dialogState} />
+      </div>
+      <EventDialog
+        event={newEventSchema}
+        newEvent
+        onClose={handleClose}
+        open={dialogState}
+      />
     </>
   );
 }

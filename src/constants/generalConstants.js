@@ -1,4 +1,4 @@
-import dayjs from 'dayjs';
+import dayjs from "dayjs";
 
 export const newEventSchema = {
   schedule: {
@@ -20,4 +20,29 @@ export const newEventSchema = {
   eventStructure: [""],
   rules: [""],
   prizes: [""],
+};
+
+export const newWorkshopSchema = {
+  published: false,
+  status: "",
+  workshopId: "",
+  workshopName: "",
+  workshopTagline: "",
+  description: "",
+  schedule: {
+    workshopStart: dayjs().format("YYYY-MM-DDTHH:mm:ss.SSSZ"),
+  },
+  collaboration: [
+    {
+      name: "",
+      link: "",
+      logoSrc: "",
+    },
+  ],
+  guidelines: [
+    {
+      info: "",
+      resourceLink: "",
+    },
+  ],
 };
