@@ -227,7 +227,7 @@ export default function WorkshopDialog({
                     id={`${index}-collab-logo`}
                     label={`Collaboration Logo ${index + 1}`}
                     placeholder="Enter Collaborators Logo URL"
-                    value={collab?.logo}
+                    value={collab?.logoSrc}
                     disabled={loading}
                     onChange={(e) =>
                       setWorkshopData((prev) => ({
