@@ -143,6 +143,14 @@ export default function WorkshopDialog({
           />
           <TextField
             className="w-full"
+            id={`${workshop?.status}-dialog`}
+            label="Status"
+            value={workshopData?.status}
+            onChange={(e) => onChangeText(e, "status")}
+            disabled={loading}
+          />
+          <TextField
+            className="w-full"
             id={`${workshop?.workshopTagline}-dialog`}
             label="Tagline"
             value={workshopData?.workshopTagline}
@@ -226,7 +234,7 @@ export default function WorkshopDialog({
                         ...prev,
                         collaboration: prev?.collaboration?.map((item, i) =>
                           i === index
-                            ? { ...item, logo: e?.target?.value }
+                            ? { ...item, logoSrc: e?.target?.value }
                             : item
                         ),
                       }))
