@@ -19,7 +19,7 @@ export default function EventRowComponent({ event, idx }) {
   const handleDelete = async (eventId) => {
     try {
       const response = await axios.delete(
-        `https://api.sinusoid/event/${eventId}`
+        `https://api.sinusoid.in/event/${eventId}`
       );
 
       if (response.status === 200) {
@@ -69,15 +69,6 @@ export default function EventRowComponent({ event, idx }) {
         </TableCell>
         <TableCell>
           {dayjs(event?.schedule?.submissionEnd).format("MMMM D, YYYY h:mm A")}
-        </TableCell>
-        <TableCell>
-          <Button
-            className="flex justify-center items-center w-[50px] h-[50px] aspect-square m-auto z-20"
-            onClick={() => handleDelete(event?.eventId)}
-            startIcon={
-              <Delete className="flex justify-center items-center m-auto" />
-            }
-          />
         </TableCell>
       </TableRow>
       <EventDialog

@@ -22,7 +22,6 @@ export default function EventsListingTable({ eventsData }) {
     { id: "eventEnd", label: "Event End" },
     { id: "submissionStart", label: "Submission Start" },
     { id: "submissionEnd", label: "Submission End" },
-    { id: "actions", label: "Actions" },
   ];
 
   return (

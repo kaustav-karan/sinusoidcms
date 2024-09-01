@@ -1,4 +1,4 @@
-import { Add, Close } from "@mui/icons-material";
+import { Add, Close, Delete } from "@mui/icons-material";
 import {
   Button,
   Dialog,
@@ -38,6 +38,29 @@ export default function EventDialog({ open, onClose, event, newEvent }) {
       onClose();
       return null;
     }
+  }
+
+  const handleDelete = async (eventId) => {
+    try {
+      const response = await axios.delete(
+        `https://api.sinusoid.in/events/${eventId}`
+      );
+
+      if (response.status === 200) {
+        window.location.reload();
+      } else {
+        console.error("Failed to delete the event");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+  async function deleteEvent() {
+    setLoading(true);
+    await handleDelete(eventData?.eventId);
+    onClose();
+    setLoading(false);
   }
 
   async function onSave() {
@@ -90,6 +113,10 @@ export default function EventDialog({ open, onClose, event, newEvent }) {
             : `Edit ${eventData?.eventName} Details`}
         </DialogTitle>
         <DialogActions>
+          <IconButton onClick={deleteEvent} className="flex mx-4 px-2">
+            <Delete />
+            <Typography>Delete</Typography>
+          </IconButton>
           <IconButton onClick={onClose} className="flex mx-2 px-2">
             <Close />
           </IconButton>
