@@ -32,7 +32,6 @@ export default function EventRowComponent({ event, idx }) {
     }
   };
 
-
   return (
     <>
       <TableRow
@@ -73,9 +72,11 @@ export default function EventRowComponent({ event, idx }) {
         </TableCell>
         <TableCell>
           <Button
-            className="flex justify-center items-center w-[50px] h-[50px] aspect-square m-auto"
+            className="flex justify-center items-center w-[50px] h-[50px] aspect-square m-auto z-20"
             onClick={() => handleDelete(event?.eventId)}
-            startIcon={<Delete className="flex justify-center items-center m-auto" />}
+            startIcon={
+              <Delete className="flex justify-center items-center m-auto" />
+            }
           />
         </TableCell>
       </TableRow>
