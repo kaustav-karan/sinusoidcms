@@ -14,6 +14,7 @@ export default function EventsListingTable({ eventsData }) {
     { id: "srno", label: "Sr. No." },
     { id: "eventId", label: "Event ID" },
     { id: "eventName", label: "Event Name" },
+    { id: "eventType", label: "Event Type" },
     { id: "published", label: "Published" },
     { id: "status", label: "Status" },
     { id: "registrationStart", label: "Registration Start" },

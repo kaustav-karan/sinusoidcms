@@ -27,7 +27,7 @@ export default function EventDialog({ open, onClose, event, newEvent }) {
   async function handleSave() {
     try {
       const response = newEvent
-        ? await axios.post("http://localhost:5000/events", eventData)
+        ? await axios.post("https://api.sinusoid.in/events", eventData)
         : await axios.put(
             `https://api.sinusoid.in/events/${eventData?.eventId}`,
             eventData
@@ -154,6 +154,7 @@ export default function EventDialog({ open, onClose, event, newEvent }) {
               />
             </Grid2>
           </Grid2>
+
           <TextField
             id={`${event?.eventName}-dialog`}
             label="Event Name"
@@ -167,6 +168,14 @@ export default function EventDialog({ open, onClose, event, newEvent }) {
             label="Status"
             value={eventData?.status}
             onChange={(e) => onChangeText(e, "status")}
+            disabled={loading}
+          />
+
+          <TextField
+            id={`${eventData?.eventType}-dialog`}
+            label="Event Type"
+            value={eventData?.eventType}
+            onChange={(e) => onChangeText(e, "eventType")}
             disabled={loading}
           />
 

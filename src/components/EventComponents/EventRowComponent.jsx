@@ -1,9 +1,8 @@
-import { Button, TableCell, TableRow } from "@mui/material";
+import { TableCell, TableRow } from "@mui/material";
+import axios from "axios";
+import dayjs from "dayjs";
 import React, { useState } from "react";
 import EventDialog from "./EventDialog";
-import dayjs from "dayjs";
-import { Delete } from "@mui/icons-material";
-import axios from "axios";
 
 export default function EventRowComponent({ event, idx }) {
   const [eventDialogState, setEventDialogState] = useState(false);
@@ -23,7 +22,7 @@ export default function EventRowComponent({ event, idx }) {
       );
 
       if (response.status === 200) {
-        window.location.reload();
+        // window.location.reload();
       } else {
         console.error("Failed to delete the event");
       }
@@ -44,6 +43,7 @@ export default function EventRowComponent({ event, idx }) {
         </TableCell>
         <TableCell>{event?.eventId}</TableCell>
         <TableCell>{event?.eventName}</TableCell>
+        <TableCell>{event?.eventType}</TableCell>
         <TableCell>{event?.published ? "Yes" : "No"}</TableCell>
         <TableCell>{event?.status}</TableCell>
         <TableCell>
