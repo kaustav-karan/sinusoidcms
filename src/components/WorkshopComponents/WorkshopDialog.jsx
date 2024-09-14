@@ -1,4 +1,4 @@
-import { Add, Close } from "@mui/icons-material";
+import { Add, Close, Delete } from "@mui/icons-material";
 import {
   Button,
   Dialog,
@@ -36,11 +36,28 @@ export default function WorkshopDialog({
             `https://api.sinusoid.in/workshops/${workshopData?.workshopId}`,
             workshopData
           );
-      console.log(response?.data);
+      // console.log(response?.data);
       return response?.data;
     } catch (error) {
       console.error("Error saving workshop:", error);
       return null;
+    }
+  }
+
+  async function deleteWorkshop() {
+    try {
+      const response = await axios.delete(
+        `https://api.sinusoid.in/workshops/${workshopData?.workshopId}`
+      );
+      if (response?.status === 200) {
+        onClose();
+        window.location.reload();
+      }
+      else {
+        console.error("Error deleting workshop:", response);
+      }
+    } catch (error) {
+      console.error("Error deleting workshop:", error);
     }
   }
 
@@ -89,6 +106,12 @@ export default function WorkshopDialog({
           </Typography>
         </DialogTitle>
         <DialogActions>
+          <IconButton onClick={deleteWorkshop} className="flex mx-4 px-2">
+            <Delete />
+            <Typography>
+              Delete
+            </Typography>
+          </IconButton>
           <IconButton onClick={onClose} className="flex mx-2 px-2">
             <Close />
           </IconButton>

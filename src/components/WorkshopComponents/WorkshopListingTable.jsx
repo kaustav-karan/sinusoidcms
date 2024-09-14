@@ -1,6 +1,13 @@
-import { Paper, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
-import React from 'react'
-import WorkshopRowCompoents from './WorkshopRowCompoents';
+import {
+  Paper,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+} from "@mui/material";
+import React from "react";
+import WorkshopRowCompoents from "./WorkshopRowCompoents";
 
 export default function WorkshopListingTable({ workshopsData }) {
   const headerColumns = [
@@ -10,7 +17,6 @@ export default function WorkshopListingTable({ workshopsData }) {
     { id: "published", label: "Published" },
     { id: "status", label: "Status" },
     { id: "workshopStart", label: "Workshop Start" },
-    { id: "actions", label: "Actions" },
   ];
   return (
     <TableContainer component={Paper}>
