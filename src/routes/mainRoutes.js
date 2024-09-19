@@ -1,3 +1,4 @@
+import CmsImageListing from "../pages/CmsImageListing";
 import EventsListing from "../pages/EventsListing";
 import Home from "../pages/Home";
 import WorkshopListing from "../pages/WorkshopListing";
@@ -15,9 +16,15 @@ export const mainRoutes = [
     nabarItem: true,
   },
   {
-    name: "Webnairs",
+    name: "Workshops",
     component: <WorkshopListing />,
-    path: "/webnairs",
+    path: "/workshops",
+    nabarItem: true,
+  },
+  {
+    name: "Images",
+    component: <CmsImageListing />,
+    path: "/imagelisting",
     nabarItem: true,
   },
 ];
