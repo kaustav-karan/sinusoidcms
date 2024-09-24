@@ -19,6 +19,7 @@ import dayjs from "dayjs";
 import React, { useEffect, useState } from "react";
 import StructuredEventData from "./StructuredEventData";
 import { MoonLoader } from "react-spinners";
+import ImageListingComponent from "./imageComponents/ImageListingComponent";
 
 export default function EventDialog({ open, onClose, event, newEvent }) {
   const [eventData, setEventData] = useState(event);
@@ -402,6 +403,22 @@ export default function EventDialog({ open, onClose, event, newEvent }) {
               Add Prize
             </Button>
           </Grid2>
+          <Grid2
+            container
+            rowSpacing={1}
+            columnSpacing={{ xs: 1, sm: 2, md: 3 }}
+          >
+            {/* Upload Event Image Assets */}
+            <Grid2 size={6}>
+              <Typography
+                variant="h6"
+                className="text-lg font-semibold text-gray-800"
+              >
+                Event Image Assets
+              </Typography>
+            </Grid2>
+          </Grid2>
+          <ImageListingComponent eventData={eventData} setImageAssets={setEventData} />
         </div>
       </DialogContent>
       <DialogActions>

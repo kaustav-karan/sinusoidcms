@@ -2,10 +2,16 @@ import { Delete } from "@mui/icons-material";
 import { Button, Grid2, TextField } from "@mui/material";
 import React from "react";
 
-export default function StructuredEventData({ type, eventInfo, index, setEventData, disabled}) {
+export default function StructuredEventData({
+  type,
+  eventInfo,
+  index,
+  setEventData,
+  disabled,
+}) {
   return (
     <Grid2 className="flex gap-2 flex-row" size={12} key={index}>
-          <TextField
+      <TextField
         className="w-full"
         multiline
         id={`${index}-dialog`}
