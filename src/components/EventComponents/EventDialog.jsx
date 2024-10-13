@@ -6,9 +6,13 @@ import {
   DialogContent,
   DialogTitle,
   Divider,
+  FormControl,
   FormControlLabel,
   Grid2,
   IconButton,
+  InputLabel,
+  MenuItem,
+  Select,
   Switch,
   TextField,
   Typography,
@@ -164,13 +168,29 @@ export default function EventDialog({ open, onClose, event, newEvent }) {
             disabled={loading}
           />
 
-          <TextField
+          {/* <TextField
             id={`${event?.status}-dialog`}
             label="Status"
             value={eventData?.status}
             onChange={(e) => onChangeText(e, "status")}
             disabled={loading}
-          />
+          /> */}
+
+          <FormControl>
+            <InputLabel id={`${event?.status}-dialog`}>Status</InputLabel>
+            <Select
+              label="Status"
+              id={`${event?.status}-dialog-input`}
+              value={eventData?.status}
+              onChange={(e) => onChangeText(e, "status")}
+              disabled={loading}
+            >
+              <MenuItem value="upcoming">Upcoming</MenuItem>
+              <MenuItem value="registrations">Registrations</MenuItem>
+              <MenuItem value="ongoing">Ongoing</MenuItem>
+              <MenuItem value="ended">Ended</MenuItem>
+            </Select>
+          </FormControl>
 
           <TextField
             id={`${eventData?.eventType}-dialog`}
@@ -179,6 +199,7 @@ export default function EventDialog({ open, onClose, event, newEvent }) {
             onChange={(e) => onChangeText(e, "eventType")}
             disabled={loading}
           />
+
           <TextField
             id={`${eventData?.eventParticipants}-dialog`}
             label="Event Participants"
