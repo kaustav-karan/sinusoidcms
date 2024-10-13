@@ -179,6 +179,13 @@ export default function EventDialog({ open, onClose, event, newEvent }) {
             onChange={(e) => onChangeText(e, "eventType")}
             disabled={loading}
           />
+          <TextField
+            id={`${eventData?.eventParticipants}-dialog`}
+            label="Event Participants"
+            value={eventData?.eventParticipants}
+            onChange={(e) => onChangeText(e, "eventParticipants")}
+            disabled={loading}
+          />
 
           <TextField
             id={`${eventData?.eventTagline}-dialog`}
@@ -418,7 +425,10 @@ export default function EventDialog({ open, onClose, event, newEvent }) {
               </Typography>
             </Grid2>
           </Grid2>
-          <ImageListingComponent eventData={eventData} setImageAssets={setEventData} />
+          <ImageListingComponent
+            eventData={eventData}
+            setImageAssets={setEventData}
+          />
         </div>
       </DialogContent>
       <DialogActions>
