@@ -53,10 +53,6 @@ export default function GenericImgModal({ category, imageData, setImageData }) {
     }
   }
 
-  useEffect(() => {
-    console.log({ imageData });
-  }, [imageData]);
-
   return (
     <>
       <Grid2 className="flex gap-2 flex-row" size={6}>

@@ -18,10 +18,6 @@ export default function ImageGridComponent({ images }) {
     setCurrentPage(value);
   };
 
-  useEffect(() => {
-    console.log(images);
-  }, [images]);
-
   return (
     <Box sx={{ marginX: "1.5rem",  }}>
       {/* Container to constrain images to 500x500px */}

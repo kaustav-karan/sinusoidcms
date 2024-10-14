@@ -37,10 +37,6 @@ export default function CmsImageListing() {
     fetchData();
   }, []);
 
-  useEffect(() => {
-    console.log(imageData);
-  }, [imageData]);
-
   return (
     <>
       <ProtectedHeader />
@@ -50,7 +46,7 @@ export default function CmsImageListing() {
             Add a New Image
           </Button>
         </div>
-          <ImageGridComponent images={imageData} />
+        <ImageGridComponent images={imageData} />
       </div>
       <NewImageDialog open={dialogState} onClose={handleClose} />
     </>

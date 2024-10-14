@@ -38,10 +38,6 @@ export default function EventsListing() {
     fetchData();
   }, []);
 
-  useEffect(() => {
-    console.log({ eventData });
-  }, [eventData]);
-
   return (
     <>
       <ProtectedHeader />

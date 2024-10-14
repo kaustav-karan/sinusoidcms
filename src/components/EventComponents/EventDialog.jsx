@@ -76,9 +76,6 @@ export default function EventDialog({ open, onClose, event, newEvent }) {
     window.location.reload();
   }
 
-  useEffect(() => {
-    console.log(eventData);
-  }, [eventData]);
 
   function onChangeText(e, key) {
     setEventData((prev) => ({
