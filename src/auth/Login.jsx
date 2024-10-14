@@ -31,11 +31,26 @@ const Login = () => {
   }, [navigate]);
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="w-full max-w-md p-8 space-y-6 bg-white rounded shadow-md">
-        <h2 className="text-2xl font-bold text-center text-gray-900">
-          siNUsoidLogin
-        </h2>
+    <div
+      className="flex flex-col items-center justify-center min-h-screen bg-gray-100"
+      style={{
+        backgroundImage:
+          "url(https://api.sinusoid.in/images/d395353e49a21a3537026d2d766442c9.jpg)",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
+      <div className="flex">
+        <img
+          src="https://api.sinusoid.in/images/2a6a4018e4a5c76238e7085390cc71f4.png"
+          alt="Brand Logo"
+          className="h-44"
+        />
+      </div>
+      <div className="w-full max-w-md p-8 space-y-6 bg-white bg-opacity-90 rounded shadow-md">
+        {/* <h2 className="text-2xl font-bold text-center text-gray-900">
+          siNUsoid CMS Login
+        </h2> */}
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
             <label
