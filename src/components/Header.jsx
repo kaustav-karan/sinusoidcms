@@ -13,7 +13,8 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
 import { Link } from "react-router-dom";
-import { mainRoutes } from "../routes/mainRoutes";
+import { MainRoutes } from "../routes/MainRoutes";
+import SignOutButton from "./AuthComponents/SignOutButtonComponent";
 
 const drawerWidth = 240;
 
@@ -32,7 +33,7 @@ function ProtectedHeader(props) {
       </Typography>
       <Divider />
       <List>
-        {mainRoutes
+        {MainRoutes
           .filter((route) => route?.nabarItem)
           .map((item, idx) => (
             <ListItem key={`navbarItem-${idx}`} disablePadding>
@@ -74,13 +75,19 @@ function ProtectedHeader(props) {
             </Link>
           </Box>
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
-            {mainRoutes.filter((route) => route?.nabarItem).map((item, idx) => (
-              <Link to={item?.path} key={item?.name}>
-                <Button key={item?.name} sx={{ color: "#fff" }}>
-                  {item?.name}
-                </Button>
-              </Link>
-            ))}
+            {MainRoutes
+              .filter((route) => route?.nabarItem)
+              .map((item, idx) => (
+                <Link to={item?.path} key={item?.name}>
+                  <Button key={item?.name} sx={{ color: "#fff" }}>
+                    {item?.name}
+                  </Button>
+                </Link>
+              ))}
+          </Box>
+          {/* Sign Out Button */}
+          <Box sx={{ display: { xs: "none", sm: "block" }, mx: 2 }} >
+            <SignOutButton /> 
           </Box>
         </Toolbar>
       </AppBar>

@@ -1,9 +1,17 @@
+import Login from "../auth/Login";
 import CmsImageListing from "../pages/CmsImageListing";
 import EventsListing from "../pages/EventsListing";
 import Home from "../pages/Home";
 import WorkshopListing from "../pages/WorkshopListing";
 
-export const mainRoutes = [
+import React from "react";
+
+export const MainRoutes = [
+  {
+    name: "Login",
+    component:  <Login />,
+    path: "/auth",
+  },
   {
     name: "Home",
     component: <Home />,
@@ -28,3 +36,4 @@ export const mainRoutes = [
     nabarItem: true,
   },
 ];
+
