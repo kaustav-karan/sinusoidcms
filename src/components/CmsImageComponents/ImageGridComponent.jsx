@@ -1,5 +1,5 @@
 import { Box, Grid, Pagination, Typography } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 export default function ImageGridComponent({ images }) {
   const imagesPerPage = 15;

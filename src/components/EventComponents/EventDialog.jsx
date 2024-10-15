@@ -20,10 +20,10 @@ import {
 import { DatePicker } from "@mui/x-date-pickers";
 import axios from "axios";
 import dayjs from "dayjs";
-import React, { useEffect, useState } from "react";
-import StructuredEventData from "./StructuredEventData";
+import React, { useState } from "react";
 import { MoonLoader } from "react-spinners";
 import ImageListingComponent from "./imageComponents/ImageListingComponent";
+import StructuredEventData from "./StructuredEventData";
 
 export default function EventDialog({ open, onClose, event, newEvent }) {
   const [eventData, setEventData] = useState(event);

@@ -3,12 +3,12 @@ import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCZaWUSugvyq-5ZnzsiOdDw347AP0r6HyI",
-  authDomain: "sinusoidcms-2024.firebaseapp.com",
-  projectId: "sinusoidcms-2024",
-  storageBucket: "sinusoidcms-2024.appspot.com",
-  messagingSenderId: "844535693028",
-  appId: "1:844535693028:web:075817955ba45f8199f6f1",
+  apiKey: process.env.REACT_APP_APIKEY,
+  authDomain: process.env.REACT_APP_AUTHDOMAIN,
+  projectId: process.env.REACT_APP_PROJECTID,
+  storageBucket: process.env.REACT_APP_STORAGEBUCKET,
+  messagingSenderId: process.env.REACT_APP_MESSAGINGSENDERID,
+  appId: process.env.APPID,
 };
 
 const app = initializeApp(firebaseConfig);
