@@ -232,15 +232,22 @@ export default function EventDialog({ open, onClose, event, newEvent }) {
               />
             </Grid2>
           </Grid2>
-          <Grid2 size={6}>
-            <TextField
-              fullWidth
-              id={`${eventData?.eventParticipants}-dialog`}
-              label="Event Participants"
-              value={eventData?.eventParticipants}
-              onChange={(e) => onChangeText(e, "eventParticipants")}
-              disabled={loading}
-            />
+          <Grid2 size={12}>
+            <FormControl fullWidth>
+              <InputLabel id={`${event?.eventRedirectUrl}-dialog`}>
+                Event Participants
+              </InputLabel>
+              <Select
+                label="Event Participants"
+                id={`${event?.eventParticipants}-dialog-input`}
+                value={eventData?.eventParticipants}
+                onChange={(e) => onChangeText(e, "eventParticipants")}
+                disabled={loading}
+              >
+                <MenuItem value="solo">Solo</MenuItem>
+                <MenuItem value="team">Team</MenuItem>
+              </Select>
+            </FormControl>
           </Grid2>
           <Grid2 size={6}>
             <TextField
