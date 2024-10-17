@@ -33,8 +33,8 @@ const Home = () => {
           {imageData.map((image, index) => (
             <img
               key={index}
-              src={`https://api.sinusoid.in/images/${image}`}
-              alt={`Image ${index + 1}`}
+              src={image}
+              alt={`Thumbnail ${index + 1}`}
               className="w-auto h-[35vh] cursor-pointer"
               onClick={() => {
                 window.location.href = "/imagelisting"; 

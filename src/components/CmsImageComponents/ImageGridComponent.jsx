@@ -1,5 +1,5 @@
 import { Box, Grid, Pagination, Typography } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 export default function ImageGridComponent({ images }) {
   const imagesPerPage = 15;
@@ -18,8 +18,12 @@ export default function ImageGridComponent({ images }) {
     setCurrentPage(value);
   };
 
+  useEffect(() => {
+    console.log({ images });
+  }, [images]);
+
   return (
-    <Box sx={{ marginX: "1.5rem",  }}>
+    <Box sx={{ marginX: "1.5rem" }}>
       {/* Container to constrain images to 500x500px */}
       <Box
         sx={{
@@ -52,7 +56,7 @@ export default function ImageGridComponent({ images }) {
                 }}
               >
                 <img
-                  src={"https://api.sinusoid.in/images/" + image}
+                  src={image}
                   alt={`${index + 1}`}
                   style={{
                     width: "100%",
