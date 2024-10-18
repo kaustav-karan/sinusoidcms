@@ -1,5 +1,6 @@
-import { Box, Grid, Pagination, Typography } from "@mui/material";
+import { Box, Grid2, Pagination, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function ImageGridComponent({ images }) {
   const imagesPerPage = 15;
@@ -23,7 +24,7 @@ export default function ImageGridComponent({ images }) {
   }, [images]);
 
   return (
-    <Box sx={{ marginX: "1.5rem" }}>
+    <Box sx={{ margin: "1.5rem" }}>
       {/* Container to constrain images to 500x500px */}
       <Box
         sx={{
@@ -34,9 +35,9 @@ export default function ImageGridComponent({ images }) {
           border: "1px solid #ccc", // Optional: Add border to visualize the box
         }}
       >
-        <Grid container spacing={2} justifyContent="center">
+        <Grid2 container spacing={2} justifyContent="center">
           {currentImages?.map((image, index) => (
-            <Grid
+            <Grid2
               item
               xs={4}
               key={index}
@@ -64,11 +65,18 @@ export default function ImageGridComponent({ images }) {
                     objectFit: "contain", // Ensure the image fits inside the grid cell
                   }}
                 />
-                <Typography align="center">{image}</Typography>
+                <Link to={image} target="_blank">
+                  <Typography align="center">
+                    {image.replace(
+                      "https://storage.googleapis.com/sinusoidcms-2024.appspot.com/",
+                      ""
+                    )}
+                  </Typography>
+                </Link>
               </Box>
-            </Grid>
+            </Grid2>
           ))}
-        </Grid>
+        </Grid2>
         <Box mt={4} display="flex" justifyContent="center">
           <Pagination
             count={totalPages}
