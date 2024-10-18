@@ -206,7 +206,7 @@ export default function EventDialog({ open, onClose, event, newEvent }) {
             <Grid2 size={6}>
               <FormControl fullWidth>
                 <InputLabel id={`${event?.eventMode}-dialog`}>
-                  Event Type
+                  Event Mode
                 </InputLabel>
                 <Select
                   label="Event Mode"
@@ -228,6 +228,26 @@ export default function EventDialog({ open, onClose, event, newEvent }) {
                 label="Event Redirect URL"
                 value={eventData?.eventRedirectUrl}
                 onChange={(e) => onChangeText(e, "eventRedirectUrl")}
+                disabled={loading}
+              />
+            </Grid2>
+            <Grid2 size={6}>
+              <TextField
+                fullWidth
+                id={`minTeamMember-dialog`}
+                label="Min Team Member"
+                value={eventData?.minTeamMember}
+                onChange={(e) => onChangeText(e, "minTeamMember")}
+                disabled={loading}
+              />
+            </Grid2>
+            <Grid2 size={6}>
+              <TextField
+                fullWidth
+                id={`maxTeamMember-dialog`}
+                label="Max Team Member"
+                value={eventData?.maxTeamMember}
+                onChange={(e) => onChangeText(e, "maxTeamMember")}
                 disabled={loading}
               />
             </Grid2>
