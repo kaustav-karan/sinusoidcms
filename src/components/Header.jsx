@@ -33,18 +33,17 @@ function ProtectedHeader(props) {
       </Typography>
       <Divider />
       <List>
-        {MainRoutes
-          .filter((route) => route?.nabarItem)
-          .map((item, idx) => (
-            <ListItem key={`navbarItem-${idx}`} disablePadding>
-              <ListItemButton sx={{ textAlign: "center" }}>
-                <Link to={item?.path}>
-                  <ListItemText primary={item?.name} />
-                </Link>
-              </ListItemButton>
-            </ListItem>
-          ))}
+        {MainRoutes.filter((route) => route?.nabarItem).map((item, idx) => (
+          <ListItem key={`navbarItem-${idx}`} disablePadding>
+            <ListItemButton sx={{ textAlign: "center" }}>
+              <Link to={item?.path}>
+                <ListItemText primary={item?.name} />
+              </Link>
+            </ListItemButton>
+          </ListItem>
+        ))}
       </List>
+      <SignOutButton />
     </Box>
   );
 
@@ -75,19 +74,17 @@ function ProtectedHeader(props) {
             </Link>
           </Box>
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
-            {MainRoutes
-              .filter((route) => route?.nabarItem)
-              .map((item, idx) => (
-                <Link to={item?.path} key={item?.name}>
-                  <Button key={item?.name} sx={{ color: "#fff" }}>
-                    {item?.name}
-                  </Button>
-                </Link>
-              ))}
+            {MainRoutes.filter((route) => route?.nabarItem).map((item, idx) => (
+              <Link to={item?.path} key={item?.name}>
+                <Button key={item?.name} sx={{ color: "#fff" }}>
+                  {item?.name}
+                </Button>
+              </Link>
+            ))}
           </Box>
           {/* Sign Out Button */}
-          <Box sx={{ display: { xs: "none", sm: "block" }, mx: 2 }} >
-            <SignOutButton /> 
+          <Box sx={{ display: { xs: "none", sm: "block" }, mx: 2 }}>
+            <SignOutButton />
           </Box>
         </Toolbar>
       </AppBar>

@@ -1,5 +1,6 @@
 import Login from "../auth/Login";
 import CmsImageListing from "../pages/CmsImageListing";
+import EventRegistration from "../pages/EventRegistration";
 import EventsListing from "../pages/EventsListing";
 import Home from "../pages/Home";
 import WorkshopListing from "../pages/WorkshopListing";
@@ -35,5 +36,11 @@ export const MainRoutes = [
     path: "/imagelisting",
     nabarItem: true,
   },
+  {
+    name: "Event Registrations",
+    component: <EventRegistration />,
+    path: "/eventregistration",
+    nabarItem: true,
+  }
 ];
 
