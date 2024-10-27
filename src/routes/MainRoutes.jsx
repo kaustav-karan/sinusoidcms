@@ -3,6 +3,7 @@ import CmsImageListing from "../pages/CmsImageListing";
 import EventRegistration from "../pages/EventRegistration";
 import EventsListing from "../pages/EventsListing";
 import Home from "../pages/Home";
+import PlanRegistrations from "../pages/PlanRegistrations";
 import WorkshopListing from "../pages/WorkshopListing";
 
 import React from "react";
@@ -10,7 +11,7 @@ import React from "react";
 export const MainRoutes = [
   {
     name: "Login",
-    component:  <Login />,
+    component: <Login />,
     path: "/auth",
   },
   {
@@ -41,6 +42,11 @@ export const MainRoutes = [
     component: <EventRegistration />,
     path: "/eventregistration",
     nabarItem: true,
-  }
+  },
+  {
+    name: "Plan Registrations",
+    component: <PlanRegistrations />,
+    path: "/planregistrations",
+    nabarItem: true,
+  },
 ];
-
