@@ -5,10 +5,6 @@ import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
 import IconButton from "@mui/material/IconButton";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemText from "@mui/material/ListItemText";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
@@ -32,7 +28,7 @@ function ProtectedHeader(props) {
         siNUsoid CMS
       </Typography>
       <Divider />
-      <List>
+      {/* <List>
         {MainRoutes.filter((route) => route?.nabarItem).map((item, idx) => (
           <ListItem key={`navbarItem-${idx}`} disablePadding>
             <ListItemButton sx={{ textAlign: "center" }}>
@@ -42,7 +38,7 @@ function ProtectedHeader(props) {
             </ListItemButton>
           </ListItem>
         ))}
-      </List>
+      </List> */}
       <SignOutButton />
     </Box>
   );
@@ -74,13 +70,15 @@ function ProtectedHeader(props) {
             </Link>
           </Box>
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
-            {MainRoutes.filter((route) => route?.nabarItem).map((item, idx) => (
-              <Link to={item?.path} key={item?.name}>
-                <Button key={item?.name} sx={{ color: "#fff" }}>
-                  {item?.name}
-                </Button>
-              </Link>
-            ))}
+            {MainRoutes.filter((route) => route?.header)
+              .slice(0, 3)
+              .map((item, idx) => (
+                <Link to={item?.path} key={item?.name}>
+                  <Button key={item?.name} sx={{ color: "#fff" }}>
+                    {item?.name}
+                  </Button>
+                </Link>
+              ))}
           </Box>
           {/* Sign Out Button */}
           <Box sx={{ display: { xs: "none", sm: "block" }, mx: 2 }}>

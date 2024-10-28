@@ -39,7 +39,7 @@ export default function EventDialog({ open, onClose, event, newEvent }) {
           );
       return response?.data;
     } catch (error) {
-      console.error("Error fetching events:", error);
+      console.error("Error Saving Events:", error);
       onClose();
       return null;
     }

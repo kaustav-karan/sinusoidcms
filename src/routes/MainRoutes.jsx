@@ -3,6 +3,7 @@ import CmsImageListing from "../pages/CmsImageListing";
 import EventRegistration from "../pages/EventRegistration";
 import EventsListing from "../pages/EventsListing";
 import Home from "../pages/Home";
+import PlanLisitng from "../pages/PlanLisitng";
 import PlanRegistrations from "../pages/PlanRegistrations";
 import WorkshopListing from "../pages/WorkshopListing";
 
@@ -24,6 +25,7 @@ export const MainRoutes = [
     component: <EventsListing />,
     path: "/events",
     nabarItem: true,
+    header: true,
   },
   {
     name: "Workshops",
@@ -42,11 +44,20 @@ export const MainRoutes = [
     component: <EventRegistration />,
     path: "/eventregistration",
     nabarItem: true,
+    header: true,
   },
   {
     name: "Plan Registrations",
     component: <PlanRegistrations />,
     path: "/planregistrations",
     nabarItem: true,
+    header: true,
   },
-];
+  {
+    name: "Plans",
+    component: <PlanLisitng />,
+    path: "/plans",
+    nabarItem: true,
+    header: true,
+  },
+].sort((a, b) => a?.name.localeCompare(b?.name));
