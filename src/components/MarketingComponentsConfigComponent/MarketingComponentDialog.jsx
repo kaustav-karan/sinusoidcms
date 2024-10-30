@@ -296,7 +296,7 @@ export default function MarketingComponentDialog({
                   const newValue = e?.target?.value;
                   setNewComponentData((prev) => ({
                     ...prev,
-                    componentType: newValue,
+                    ttl: newValue,
                   }));
                 }}
               />
