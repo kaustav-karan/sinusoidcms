@@ -249,7 +249,7 @@ export default function MarketingComponentDialog({
                 variant="contained"
                 startIcon={<InsertLink />}
                 onClick={() => {
-                  window.open(`https://api.sinusoid.in/images/{newComponentData?.imgSrcLink}`, "_blank");
+                  window.open(`https://api.sinusoid.in/images/${newComponentData?.imgSrcLink}`, "_blank");
                 }}
                 disabled={!newComponentData?.imgSrcLink}
               >
