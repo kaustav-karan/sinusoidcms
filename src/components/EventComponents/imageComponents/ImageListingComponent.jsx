@@ -5,25 +5,6 @@ import { Divider, Grid2, Typography } from "@mui/material";
 export default function ImageListingComponent({ eventData, setImageAssets }) {
 
   const imageAssets = eventData?.imageAsset;
-  // function checkNullAdditionalAssets() {
-  //   if (!imageAssets?.additionalAssets) {
-  //     setImageAssets((prev) => ({
-  //       ...prev,
-  //       imageAsset: {
-  //         ...prev?.imageAsset,
-  //         additionalAssets: [{
-  //           imgAlt: "",
-  //           imgTitle: "",
-  //           imgPath: "",
-  //         }],
-  //       }
-  //     }));
-  //   }
-  // }
-
-  // useEffect(() => {
-  //   checkNullAdditionalAssets();
-  // });
 
   useEffect(() => {
     console.log({ imageAssets });

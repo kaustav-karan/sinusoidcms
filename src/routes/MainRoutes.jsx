@@ -3,6 +3,7 @@ import CmsImageListing from "../pages/CmsImageListing";
 import EventRegistration from "../pages/EventRegistration";
 import EventsListing from "../pages/EventsListing";
 import Home from "../pages/Home";
+import MarketingComponentConfig from "../pages/MarketingComponentConfig";
 import PlanLisitng from "../pages/PlanLisitng";
 import PlanRegistrations from "../pages/PlanRegistrations";
 import WorkshopListing from "../pages/WorkshopListing";
@@ -60,4 +61,11 @@ export const MainRoutes = [
     nabarItem: true,
     header: true,
   },
+  {
+    name: "Marketing Component Config",
+    component: <MarketingComponentConfig />,
+    path: "/marketingcomponentconfig",
+    nabarItem: true,
+    header: false,
+  }
 ].sort((a, b) => a?.name.localeCompare(b?.name));

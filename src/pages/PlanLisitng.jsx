@@ -37,15 +37,11 @@ export default function PlanLisitng() {
     fetchData();
   }, []);
 
-  useEffect(() => {
-    console.log({ planData });
-  }, [planData]);
-
   return (
     <>
       <ProtectedHeader />
       <div className="flex justify-end w-[95vw] mt-20 ">
-        <Button startIcon={<Add />} onClick={handleClickOpen}>
+        <Button variant="contained" color="success" startIcon={<Add />} onClick={handleClickOpen}>
           Add a Plan
         </Button>
       </div>
