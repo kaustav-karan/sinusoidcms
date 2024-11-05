@@ -1,12 +1,14 @@
-import { Link, Upload } from "@mui/icons-material";
-import { Button } from "@mui/material";
+import { Add, Link, Upload } from "@mui/icons-material";
+import { Button, Typography } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import EventRegistrationLisitngComponent from "../components/EventRegistrationComponents/EventRegistrationLisitngComponent";
 import ProtectedHeader from "../components/Header";
+import NewEventRegistrationComponent from "../components/EventRegistrationComponents/NewEventRegistrationComponent";
 
 export default function EventRegistration() {
   const [eventRegistrationData, setEventRegistrationData] = useState(null);
+  const [dialogState, setDialogState] = useState(false);
 
   // Fetch Event Registration Data
   const FetchEventRegistrations = async () => {
@@ -34,6 +36,14 @@ export default function EventRegistration() {
       return null;
     }
   };
+
+  const handleOnOpen = () => {
+    setDialogState(true);
+  }
+
+  const handleOnClose = () => {
+    setDialogState(false);
+  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -67,10 +77,20 @@ export default function EventRegistration() {
           >
             Update the G-Sheet
           </Button>
+          <Button
+            variant="contained"
+            startIcon={<Add />}
+            onClick={handleOnOpen}
+          >
+            <Typography fontSize="50" component="div" fontWeight="bold">
+              Add Event Registrations
+            </Typography>
+          </Button>
         </div>
         <EventRegistrationLisitngComponent
           eventRegistrationData={eventRegistrationData}
         />
+        <NewEventRegistrationComponent newRegistration onClose={handleOnClose} open={dialogState} />
       </div>
     </>
   );

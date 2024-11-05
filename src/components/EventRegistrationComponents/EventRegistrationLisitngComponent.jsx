@@ -1,10 +1,23 @@
-import { Paper } from "@mui/material";
+import { Button, Paper } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
+import axios from "axios";
 import React from "react";
 
 export default function EventRegistrationLisitngComponent({
   eventRegistrationData,
 }) {
+
+  const handleDelete = async (row) => {
+    try {
+      const response = await axios.delete(
+        `https://api.sinusoid.in/eventRegistrations/${row.registrationId}`
+      );
+      console.log("Delete Plan", response);
+      window.location.reload();
+    } catch (error) {
+      console.log("Error Deleting Plan", error);
+    }
+  };
     const columns = [
     { field: "registrationId", headerName: "Registration ID", width: 200 },
     { field: "eventId", headerName: "Event ID", width: 200 },
@@ -19,6 +32,21 @@ export default function EventRegistrationLisitngComponent({
     { field: "phone", headerName: "Phone", width: 200 },
     { field: "isNiitStudent", headerName: "NIIT Student", width: 200 },
   ];
+
+  const actionColumn = {
+    field: "actions",
+    headerName: "Actions",
+    width: 150,
+    renderCell: (params) => {
+      return (
+        <div>
+          <Button onClick={() => handleDelete(params.row)}>Delete</Button>
+        </div>
+      );
+    },
+  };
+
+    const updatedColumns = [...columns, actionColumn];
 
   const rows = eventRegistrationData
       ? eventRegistrationData.map((registration, index) => ({
@@ -40,7 +68,7 @@ export default function EventRegistrationLisitngComponent({
         <DataGrid
           id="event-registration-listing"
           rows={rows}
-          columns={columns}
+          columns={updatedColumns}
           pageSize={paginationModel.pageSize}
           rowsPerPageOptions={[5, 10, 20]}
           pagination
@@ -48,6 +76,7 @@ export default function EventRegistrationLisitngComponent({
           rowCount={rows?.length}
         />
       </Paper>
+      
     </>
   );
 }
