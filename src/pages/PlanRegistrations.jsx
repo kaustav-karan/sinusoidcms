@@ -2,16 +2,17 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import ProtectedHeader from "../components/Header";
 import PlanRegistrationListingComponent from "../components/PlanRegistrationComponents/PlanRegistrationListingComponent";
-import { Button } from "@mui/material";
-import { Link, Upload } from "@mui/icons-material";
+import { Button, Typography } from "@mui/material";
+import { Add, Link, Upload } from "@mui/icons-material";
+import PlanRegistrationDialog from "../components/PlanRegistrationComponents/PlanRegistrationDialog";
 
 export default function PlanRegistrations() {
   const [planRegistrationData, setPlanRegistrationData] = useState(null);
+  const [dialogState, setDialogState] = useState(false);
+
   const FetchPlanRegistrations = async () => {
     try {
-      const response = await axios.get(
-        "https://api.sinusoid.in/plan"
-      );
+      const response = await axios.get("https://api.sinusoid.in/plan");
 
       return response?.data;
     } catch (error) {
@@ -19,6 +20,14 @@ export default function PlanRegistrations() {
       return null;
     }
   };
+
+  const handleOnOpen = () => {
+    setDialogState(true);
+  }
+
+  const handleOnClose = () => {
+    setDialogState(false);
+  }
 
   const updateGsheet = async () => {
     try {
@@ -61,10 +70,22 @@ export default function PlanRegistrations() {
           >
             Update the G-Sheet
           </Button>
+          <Button
+            variant="contained"
+            startIcon={<Add />}
+            onClick={handleOnOpen}
+          >
+            <Typography fontSize="50" component="div" fontWeight="bold">
+              Add Plan Registrations
+            </Typography>
+          </Button>
         </div>
         <PlanRegistrationListingComponent
           planRegistrationData={planRegistrationData}
         />
+
+        <PlanRegistrationDialog newRegistration onClose={handleOnClose} open={dialogState} />
+        
       </div>
     </>
   );
