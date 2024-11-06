@@ -4,6 +4,7 @@ import EventRegistration from "../pages/EventRegistration";
 import EventsListing from "../pages/EventsListing";
 import Home from "../pages/Home";
 import MarketingComponentConfig from "../pages/MarketingComponentConfig";
+import OrVerification from "../pages/OutsideRegistrationVerfication";
 import PlanLisitng from "../pages/PlanLisitng";
 import PlanRegistrations from "../pages/PlanRegistrations";
 import WorkshopListing from "../pages/WorkshopListing";
@@ -67,5 +68,12 @@ export const MainRoutes = [
     path: "/marketingcomponentconfig",
     nabarItem: true,
     header: false,
-  }
+  },
+  {
+    name: "OR Verification",
+    component: <OrVerification />,
+    path: "/orverification",
+    nabarItem: true,
+    header: true,
+  },
 ].sort((a, b) => a?.name.localeCompare(b?.name));
