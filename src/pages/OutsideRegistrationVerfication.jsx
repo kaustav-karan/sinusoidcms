@@ -2,50 +2,140 @@ import React, { useState, useEffect } from 'react';
 import ProtectedHeader from '../components/Header';
 import axios from 'axios';
 import { Dialog, DialogTitle, DialogContent, Checkbox, TextField } from '@mui/material';
+
 export default function OutsideRegistrationVerification() {
   const [registrationId, setRegistrationId] = useState('');
   const [registrationData, setRegistrationData] = useState(null);
   const [planRegistrationData, setPlanRegistrationData] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [showForm, setShowForm] = useState(true);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [currentImage, setCurrentImage] = useState('');
   const [checkedItems, setCheckedItems] = useState({});
   const [roomAllotted, setRoomAllotted] = useState('');
   const [emergencyContact, setEmergencyContact] = useState('');
-  const handleInputChange = (event) => {
-    setRegistrationId(event.target.value);
-  };
-  const handleSubmit = () => {
-    if (planRegistrationData) {
-      const match = planRegistrationData.find(
-        (item) => item.registrationId === registrationId.trim()
-      );
-      if (match) {
-        setRegistrationData(match);
-        setShowForm(false);
+  const [attendeeFormData, setAttendeeFormData] = useState({});
+
+  // Function to fetch plan registration data
+  const fetchPlanRegistrations = async (registrationId) => {
+    try {
+      setLoading(true); // Start loading
+      const response = await axios.get(`https://api.sinusoid.in/planRegistration/${registrationId}`);
+      const data = response.data; // Store response.data in a new variable
+
+      console.log("API Response:", data);
+
+      if (data) {
+        setPlanRegistrationData(data); // Set plan registration data
+        setRegistrationData(data); // Set fetched data for display
+        setShowForm(false); // Hide the form on successful fetch
+        updateAttendeeFormData(data); // Populate attendee form data
       } else {
         alert("No registration found for this ID.");
-        setRegistrationData(null);
       }
-    } else {
-      alert("Registration data is not available.");
+    } catch (error) {
+      console.error("Error fetching plan registrations:", error);
+      alert("Failed to fetch registration data.");
+    } finally {
+      setLoading(false); // Stop loading
     }
   };
-  useEffect(() => {
-    const fetchPlanRegistrations = async () => {
-      try {
-        const response = await axios.get("https://api.sinusoid.in/plan");
-        setPlanRegistrationData(response.data);
-      } catch (error) {
-        console.error("Error fetching plan registrations:", error);
-        alert("Failed to fetch registration data.");
-      } finally {
-        setLoading(false);
-      }
+
+  // Update the attendee form data
+  const updateAttendeeFormData = (data) => {
+    setAttendeeFormData((prev) => ({
+      ...prev,
+      attendeeId: data.registrationId,
+      firstName: data.firstName,
+      lastName: data.lastName,
+      emailId: data.email,
+      contactNumber: data.phone,
+    }));
+  };
+
+  // Handle registration ID submission
+  const handleSubmit = async () => {
+    if (!registrationId.trim()) {
+      alert("Please enter a valid registration ID.");
+      return;
+    }
+
+    // Make sure the checklist is complete
+    if (!isSubmitEnabled) {
+      alert("Please complete the checklist.");
+      return;
+    }
+
+    // Prepare the data for the POST request
+    const dataToSubmit = {
+      ...attendeeFormData, // Attendee details from form
+      roomAllotted: roomAllotted, // Room allotted field
+      emergencyContact: emergencyContact, // Emergency contact field
+      checkedItems: checkedItems, // Checklist details
     };
-    fetchPlanRegistrations();
-  }, []);
+
+    try {
+      setLoading(true);
+      // Send the POST request to your API
+      const response = await axios.post('https://api.sinusoid.in/attendee/external', dataToSubmit);
+
+      console.log('API Response:', response.data);
+      alert('Checklist submitted successfully!');
+
+      // Reset form data after submission
+      setRegistrationId('');
+      setRegistrationData(null);
+      setShowForm(true);
+      setCheckedItems({});
+      setRoomAllotted('');
+      setEmergencyContact('');
+      setAttendeeFormData({});
+    } catch (error) {
+      console.error('Error submitting checklist:', error);
+      alert('Failed to submit the checklist.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Handle input change for registration ID
+  const handleInputChange = (event) => {
+    setRegistrationId(event.target.value);
+    console.log(event.target.value);
+  };
+
+  // Handle image click for preview
+  const handleImageClick = (imageUrl) => {
+    setCurrentImage(imageUrl);
+    setDialogOpen(true);
+  };
+
+  // Close image preview dialog
+  const handleCloseDialog = () => {
+    setDialogOpen(false);
+  };
+
+  // Handle resetting the form to check another registration ID
+  const handleCheckAnother = () => {
+    setRegistrationId('');
+    setRegistrationData(null);
+    setShowForm(true);
+    setCheckedItems({});
+    setRoomAllotted('');
+    setEmergencyContact('');
+  };
+
+  // Handle checkbox changes
+  const handleCheckboxChange = (field) => {
+    setCheckedItems((prevCheckedItems) => ({
+      ...prevCheckedItems,
+      [field]: !prevCheckedItems[field],
+    }));
+  };
+
+  // Check if all required fields are completed for submitting
+  const isSubmitEnabled = Object.values(checkedItems).every(Boolean) && roomAllotted && emergencyContact;
+
   if (loading) {
     return (
       <>
@@ -56,28 +146,7 @@ export default function OutsideRegistrationVerification() {
       </>
     );
   }
-  const handleImageClick = (imageUrl) => {
-    setCurrentImage(imageUrl);
-    setDialogOpen(true);
-  };
-  const handleCloseDialog = () => {
-    setDialogOpen(false);
-  };
-  const handleCheckAnother = () => {
-    setRegistrationId('');
-    setRegistrationData(null);
-    setShowForm(true);
-    setCheckedItems({});
-    setRoomAllotted('');
-    setEmergencyContact('');
-  };
-  const handleCheckboxChange = (field) => {
-    setCheckedItems((prevCheckedItems) => ({
-      ...prevCheckedItems,
-      [field]: !prevCheckedItems[field],
-    }));
-  };
-  const isSubmitEnabled = Object.values(checkedItems).every(Boolean) && roomAllotted && emergencyContact;
+
   return (
     <>
       <ProtectedHeader />
@@ -92,7 +161,7 @@ export default function OutsideRegistrationVerification() {
               className="p-3 border border-gray-600 rounded-md text-center w-72 bg-gray-800 text-white placeholder-gray-400"
             />
             <button
-              onClick={handleSubmit}
+              onClick={() => fetchPlanRegistrations(registrationId.trim())}
               className="w-36 p-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
             >
               Submit
@@ -192,7 +261,7 @@ export default function OutsideRegistrationVerification() {
               }}
             />
             <button
-              onClick={() => alert('Checklist submitted!')}
+              onClick={handleSubmit}
               disabled={!isSubmitEnabled}
               className={`mt-4 w-full p-2 rounded-md transition-colors ${
                 isSubmitEnabled ? 'bg-green-600 hover:bg-green-700 text-white' : 'bg-gray-500 text-gray-300'
@@ -202,21 +271,19 @@ export default function OutsideRegistrationVerification() {
             </button>
             <button
               onClick={handleCheckAnother}
-              className="mt-4 w-full p-2 bg-gray-700 text-white rounded-md hover:bg-gray-600 transition-colors"
+              className="mt-4 w-full p-2 bg-gray-400 text-white rounded-md hover:bg-gray-500 transition-colors"
             >
-              Check Another Reg ID
+              Check Another Registration ID
             </button>
           </div>
         )}
       </div>
+
+      {/* Dialog for image preview */}
       <Dialog open={dialogOpen} onClose={handleCloseDialog}>
         <DialogTitle>Image Preview</DialogTitle>
         <DialogContent>
-          <img
-            src={`https://api.sinusoid.in/images/${currentImage}`}
-            alt="Registration Image"
-            className="w-full h-auto"
-          />
+          <img src={currentImage} alt="Preview" className="w-full h-auto" />
         </DialogContent>
       </Dialog>
     </>
